@@ -1,0 +1,81 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -ms-content-zooming: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.vr-container {
+  position: relative;
+  width: 640px;
+  height: 420px;
+  background: url('../img/logo.png') center center no-repeat;
+}
+
+.vr-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vr-loading {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  text-align: center;
+}
+
+.vr-loading div {
+  width: 10px;
+  height: 10px;
+  background: #bbb;
+  border-radius: 15px;
+  margin: 130px 5px 0;
+  display: inline-block;
+  animation: ld 1s infinite;
+}
+.vr-loading div:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.vr-loading div:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes ld {
+  0% {
+    width: 10px;
+    height: 10px;
+    background: #bbb;
+    margin: 130px 5px 0;
+  }
+  25% {
+    width: 16px;
+    height: 16px;
+    background: #666;
+    margin: 120px 5px 0;
+  }
+  50% {
+    width: 10px;
+    height: 10px;
+    background: #bbb;
+    margin: 130px 5px 0;
+  }
+}
