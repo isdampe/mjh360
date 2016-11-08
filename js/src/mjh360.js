@@ -78,6 +78,8 @@ class mjh360 {
       //Add nav item.
       sceneData.navButton = document.createElement('a');
       sceneData.navButton.className = 'nav-button';
+      sceneData.navButton.title = sceneData.name;
+      sceneData.navButton.href = '#' + sceneData.name;
 
       let img = document.createElement('img');
       img.src = sceneData.thumb;

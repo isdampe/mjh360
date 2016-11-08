@@ -1636,6 +1636,8 @@ var mjh360 = function () {
       //Add nav item.
       sceneData.navButton = document.createElement('a');
       sceneData.navButton.className = 'nav-button';
+      sceneData.navButton.title = sceneData.name;
+      sceneData.navButton.href = '#' + sceneData.name;
 
       var img = document.createElement('img');
       img.src = sceneData.thumb;
