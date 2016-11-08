@@ -28,6 +28,18 @@ module.exports = function(grunt) {
       }
     },
 
+    //Concat files.
+    concat: {
+      options: {
+        separator: ';',
+        sourceMap: true
+      },
+      dist: {
+        src: ['js/src/vendor/es5-shim.js', 'js/src/vendor/eventShim.js', 'js/src/vendor/requestAnimationFrame.js', 'js/src/vendor/marzipano.js', 'js/build/mjh360.js'],
+        dest: 'js/concat/mjh360.js'
+      }
+    },
+
     babel: {
         options: {
             sourceMap: true,
@@ -48,7 +60,7 @@ module.exports = function(grunt) {
           sourceMapIn: 'js/build/mjh360.js.map'
         },
         files: {
-          'js/build/mjh360.min.js': ['js/build/mjh360.js']
+          'js/build/mjh360.min.js': ['js/concat/mjh360.js']
         }
       }
     },
@@ -74,7 +86,7 @@ module.exports = function(grunt) {
   });
 
 
-  //grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-babel');
@@ -82,6 +94,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   //grunt.registerTask('default', ['concat', 'uglify', 'sass', 'autoprefixer']);
-  grunt.registerTask('default', ['babel','uglify', 'sass', 'autoprefixer']);
+  grunt.registerTask('default', ['babel','concat','uglify', 'sass', 'autoprefixer']);
 
 };

@@ -7,7 +7,7 @@
   <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
   <style>@-ms-viewport { width: device-width; }</style>
   <link rel="stylesheet" href="http://www.marzipano.net/demos/common/reset.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mjh360.css">
 </head>
 <body>
 
@@ -19,13 +19,35 @@
   <button class="vr-after">After</button>
 </div>
 
-<script src="http://www.marzipano.net/demos/common/es5-shim.js"></script>
-<script src="http://www.marzipano.net/demos/common/eventShim.js"></script>
-<script src="http://www.marzipano.net/demos/common/requestAnimationFrame.js" ></script>
-<script src="http://www.marzipano.net/build/marzipano.js" ></script>
+<script src="js/build/mjh360.min.js"></script>
+<script>
 
-<script src="js/src/mjh360.js"></script>
-<!--<script src="js/build/mjh360.js"></script>-->
+window.viewer = new mjh360(document.getElementById('vr-pano'),[
+  {
+    "name": "Bathroom",
+    "thumb": "/img/angra.jpg",
+    "before": "/img/angra.jpg",
+    "after": "/img/angra2.jpg"
+  },
+  {
+    "name": "Kitchen",
+    "thumb": "/img/angra.jpg",
+    "before": "/img/angra2.jpg",
+    "after": "/img/angra.jpg"
+  },
+  {
+    "name": "Winning",
+    "thumb": "/img/angra.jpg",
+    "before": "/img/angra.jpg"
+  }
+]);
+
+setTimeout(function(){
+  viewer.render();
+  viewer.sceneGoToTime(false,'after');
+},1000);
+
+</script>
 
 </body>
 </html>

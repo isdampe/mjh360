@@ -8,6 +8,7 @@
     "babel-preset-es2015": "*",
     "grunt-contrib-uglify": "*",
     "grunt-autoprefixer": "*",
-    "grunt-contrib-sass": "*"
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-concat": "*"
   }
 }

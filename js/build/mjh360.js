@@ -235,25 +235,4 @@ var mjh360 = function () {
 
   return mjh360;
 }();
-
-window.viewer = new mjh360(document.getElementById('vr-pano'), [{
-  "name": "Bathroom",
-  "thumb": "/img/angra.jpg",
-  "before": "/img/angra.jpg",
-  "after": "/img/angra2.jpg"
-}, {
-  "name": "Kitchen",
-  "thumb": "/img/angra.jpg",
-  "before": "/img/angra2.jpg",
-  "after": "/img/angra.jpg"
-}, {
-  "name": "Winning",
-  "thumb": "/img/angra.jpg",
-  "before": "/img/angra.jpg"
-}]);
-
-setTimeout(function () {
-  viewer.render();
-  viewer.sceneGoToTime(false, 'after');
-}, 1000);
 //# sourceMappingURL=mjh360.js.map
