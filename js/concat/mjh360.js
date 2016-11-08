@@ -1715,11 +1715,11 @@ var mjh360 = function () {
       }
 
       if (time === "before") {
-        this.goBackwardsInTime.classList.add('vr-button-inactive');
-        this.goForwardsInTime.classList.remove('vr-button-inactive');
+        this.goBackwardsInTime.classList.add('vr-button-active');
+        this.goForwardsInTime.classList.remove('vr-button-active');
       } else if (time === "after") {
-        this.goForwardsInTime.classList.add('vr-button-inactive');
-        this.goBackwardsInTime.classList.remove('vr-button-inactive');
+        this.goForwardsInTime.classList.add('vr-button-active');
+        this.goBackwardsInTime.classList.remove('vr-button-active');
       }
 
       this.scenes[this.currentScene][sceneSelector].switchTo();
@@ -1739,12 +1739,12 @@ var mjh360 = function () {
       var sceneSelector;
       if (time === "before") {
         sceneSelector = "beforeScene";
-        this.goBackwardsInTime.classList.add('vr-button-inactive');
-        this.goForwardsInTime.classList.remove('vr-button-inactive');
+        this.goBackwardsInTime.classList.add('vr-button-active');
+        this.goForwardsInTime.classList.remove('vr-button-active');
       } else if (time === "after") {
         sceneSelector = "afterScene";
-        this.goForwardsInTime.classList.add('vr-button-inactive');
-        this.goBackwardsInTime.classList.remove('vr-button-inactive');
+        this.goForwardsInTime.classList.add('vr-button-active');
+        this.goBackwardsInTime.classList.remove('vr-button-active');
       } else {
         sceneSelector = "before";
       }
