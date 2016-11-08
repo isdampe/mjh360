@@ -22,8 +22,9 @@ html, body {
 .vr-container {
   position: relative;
   width: 640px;
-  height: 420px;
+  height: 495px;
   background: url('../img/logo.png') center center no-repeat;
+  overflow: hidden;
 }
 
 .vr-viewport {
@@ -32,6 +33,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 2;
 }
 
 .vr-loading {
@@ -41,6 +43,41 @@ html, body {
   height: 150px;
   margin: auto;
   text-align: center;
+  z-index: 1;
+}
+
+.vr-nav {
+  position: absolute;
+  bottom: -75px;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background: rgba(0,0,0,0.65);
+  z-index: 3;
+  text-align: center;
+  padding: 6px;
+  transition: 0.5s all;
+  transition-delay: 0.5s;
+}
+.vr-nav-active {
+  bottom: 0;
+}
+
+.vr-nav a {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 4px solid transparent;
+}
+.vr-nav a.active {
+  border: 4px solid #aaa;
+}
+
+.vr-nav img {
+  display: block;
+  width: 64px;
+  height: 64px;
 }
 
 .vr-loading div {
@@ -57,6 +94,11 @@ html, body {
 }
 .vr-loading div:nth-child(3) {
   animation-delay: 0.3s;
+}
+
+.vr-before, .vr-after {
+  position: absolute;
+  z-index: 3;
 }
 
 @keyframes ld {

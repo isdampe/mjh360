@@ -31,6 +31,7 @@ class mjh360 {
     //Hook the time travelling buttons.
     this.goBackwardsInTime = element.querySelector('.vr-before');
     this.goForwardsInTime = element.querySelector('.vr-after');
+    this.navigation = element.querySelector('.vr-nav');
 
     this.goBackwardsInTime.addEventListener('click', e => this.sceneGoToTime(e,'before'));
     this.goForwardsInTime.addEventListener('click', e => this.sceneGoToTime(e,'after'));
@@ -48,9 +49,10 @@ class mjh360 {
     this.limiter = Marzipano.RectilinearView.limit.traditional(1024, 100*Math.PI/180);
     this.view = new Marzipano.RectilinearView({ yaw: Math.PI }, this.limiter);
 
-
+    //Build the scenes.
     for ( var i=0; i<sceneList.length; i++ ) {
       let sceneData = sceneList[i];
+
       sceneData.beforeSrc = Marzipano.ImageUrlSource.fromString( sceneData.before );
       sceneData.afterSrc = Marzipano.ImageUrlSource.fromString( sceneData.after );
       sceneData.beforeScene = this.viewer.createScene({
@@ -59,12 +61,42 @@ class mjh360 {
         view: this.view,
         pinFirstLevel: true
       });
-      sceneData.afterScene = this.viewer.createScene({
-        source: sceneData.afterSrc,
-        geometry: this.geometry,
-        view: this.view,
-        pinFirstLevel: true
-      });
+
+      if ( sceneData.hasOwnProperty('after') ) {
+
+        sceneData.afterScene = this.viewer.createScene({
+          source: sceneData.afterSrc,
+          geometry: this.geometry,
+          view: this.view,
+          pinFirstLevel: true
+        });
+
+      } else {
+        sceneData.afterScene = false;
+      }
+
+      //Add nav item.
+      sceneData.navButton = document.createElement('a');
+      sceneData.navButton.className = 'nav-button';
+
+      let img = document.createElement('img');
+      img.src = sceneData.thumb;
+
+      var pr = this;
+      (function(i){
+        var dynamicOnHook = function(e) {
+          e.preventDefault();
+          pr.sceneActivate(false,i);
+          this.classList.add('active');
+        };
+
+        sceneData.navButton.addEventListener('click', dynamicOnHook);
+        sceneData.navButton.addEventListener('touchstart', dynamicOnHook);
+      })(i);
+
+      sceneData.navButton.appendChild(img);
+      this.navigation.appendChild(sceneData.navButton);
+
       this.scenes.push(sceneData);
 
       this.currentScene = 0;
@@ -87,6 +119,8 @@ class mjh360 {
       return false;
     }
 
+    this.navigation.classList.add('vr-nav-active');
+    this.scenes[0].navButton.classList.add('active');
     this.scenes[0].beforeScene.switchTo();
 
   }
@@ -105,6 +139,13 @@ class mjh360 {
     }
 
     var sceneSelector = this.sceneTimeToSelector(time);
+
+    if ( time === "after" && this.scenes[this.currentScene][sceneSelector] === false ) {
+      //Auto change to before.
+      this.sceneGoToTime(false,'before');
+      return false;
+    }
+
     if ( time === "before" ) {
       this.goBackwardsInTime.classList.add('vr-button-inactive');
       this.goForwardsInTime.classList.remove('vr-button-inactive');
@@ -118,6 +159,11 @@ class mjh360 {
 
   }
 
+  /**
+   * Calculates a scene selector from a requested time
+   * @param time string Before or after
+   * @return string beforeScene or afterScene
+   */
   sceneTimeToSelector(time) {
 
     var sceneSelector;
@@ -151,6 +197,8 @@ class mjh360 {
       console.warn('No scene found with this ID.');
       return false;
     }
+
+    this.scenes[this.currentScene].navButton.classList.remove('active');
     this.currentScene = scene;
     this.currentTime = false;
 
@@ -171,10 +219,15 @@ window.viewer = new mjh360(document.getElementById('vr-pano'),[
     "thumb": "/img/angra.jpg",
     "before": "/img/angra2.jpg",
     "after": "/img/angra.jpg"
+  },
+  {
+    "name": "Winning",
+    "thumb": "/img/angra.jpg",
+    "before": "/img/angra.jpg"
   }
 ]);
 
 setTimeout(function(){
   viewer.render();
   viewer.sceneGoToTime(false,'after');
-},5000);
+},1000);
